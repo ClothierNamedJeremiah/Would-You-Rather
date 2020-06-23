@@ -18,8 +18,8 @@ class App extends Component {
     return (
       <Fragment>
         <Router>
-          <Route path='/login' component={Login} />
           <Route exact path='/' component={Dashboard} />
+          <Route path='/login' component={Login} />
           <Route path='/leaderboard' component={Leaderboard} />
         </Router>
       </Fragment>
