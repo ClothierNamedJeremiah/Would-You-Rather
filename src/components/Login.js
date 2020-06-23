@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../actions/authedUser'
+import { Redirect } from 'react-router-dom'
 
 import './Login.css'
 
@@ -26,15 +27,19 @@ class Login extends Component {
     this.setState(() => ({
       user,
     }));
+
   }
 
+  // TODO: back arrow doesn't work after login
   render() {
     const { authedUser, users } = this.props;
-    console.log("Rendering Login")
-    // TODO handle submit via the dispatch function for updating the user
+
+    if (authedUser !== null) {
+      return <Redirect to='/' />
+    }
 
     return (
-      <div className='login'>
+      <div className='center'>
         <h1>Login</h1>
         <form onSubmit={this.handleLogin}>
           <select defaultValue={this.state.user} onChange={this.handleChange}>
