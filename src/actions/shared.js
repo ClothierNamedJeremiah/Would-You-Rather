@@ -16,3 +16,6 @@ export function handleInitalData () {
     });
   }
 }
+
+// TODO: Add function for addQuestion because the question itself will be appended to questions and
+// the question id will be appened to the user's data

@@ -1,6 +1,6 @@
 # Would You Rather Project
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+The `api.js ` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` api.js ` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
 
 ## Installation
 1. Clone the repository with `git clone` 
