@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
 
-import { handleAddQuestion } from '../actions/questions';
+import { handleAddQuestion } from '../actions/shared';
 
 class NewQuestion extends Component {
 
   state = {
     optionOneText: '',
     optionTwoText: '',
+    toHome: false,
   }
 
   handleInput = (e) => {
@@ -16,7 +17,7 @@ class NewQuestion extends Component {
     const key = e.target.name;
     const value = e.target.value;
 
-    this.setState((prevState) => ({
+    this.setState(() => ({
       [key]: value
     }));
   }
@@ -32,16 +33,18 @@ class NewQuestion extends Component {
       author: authedUser,
     }))
 
-    // redirect to home page
+    this.setState(() => ({
+      toHome: true
+    }));
   }
 
   render() {
     const { users, questions, authedUser } = this.props;
-    const { optionOneText, optionTwoText } = this.state;
+    const { optionOneText, optionTwoText, toHome } = this.state;
 
-    // if (authedUser === null) {
-    //   return <Redirect to='/login' />
-    // }
+    if (toHome) {
+      return <Redirect to='/' />
+    }
 
     // TODO: user types really fast, what is the actual state
     return (

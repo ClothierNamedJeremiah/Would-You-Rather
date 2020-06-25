@@ -1,7 +1,7 @@
-import { _getUsers, _getQuestions } from '../utils/api'
+import { _getUsers, _getQuestions, _saveQuestion} from '../utils/api'
 
-import { receiveQuestions } from './questions'
-import { receiveUsers } from './users'
+import { receiveQuestions, addQuestion } from './questions'
+import { receiveUsers, createQuestion } from './users'
 
 //
 export function handleInitalData () {
@@ -17,5 +17,13 @@ export function handleInitalData () {
   }
 }
 
-// TODO: Add function for addQuestion because the question itself will be appended to questions and
-// the question id will be appened to the user's data
+export function handleAddQuestion (question) {
+  return (dispatch) => {
+
+    return _saveQuestion(question)
+      .then(question => {
+        dispatch(addQuestion(question));
+        dispatch(createQuestion(question.author, question.id));
+      });
+  }
+}

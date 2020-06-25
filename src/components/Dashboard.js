@@ -24,11 +24,11 @@ class Dashboard extends Component {
       return <Redirect to='/login' />
     }
 
-    const unanswered_questions = Object.keys(questions).filter((id) => (
+    const answered_questions = Object.keys(questions).filter((id) => (
       questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser)
     ));
 
-    const answered_questions = Object.keys(questions).filter((id) => (
+    const unanswered_questions = Object.keys(questions).filter((id) => (
       !(questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser))
     ));
 
