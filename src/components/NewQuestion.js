@@ -48,7 +48,7 @@ class NewQuestion extends Component {
 
     // TODO: user types really fast, what is the actual state
     return (
-      <div>
+      <div className = 'container'>
         <form className='new-question' onSubmit={this.handleSubmit}>
           <input name='optionOneText' type='text' placeholder='Option 1' value={optionOneText} onChange={this.handleInput}></input>
           <input name='optionTwoText' type='text' placeholder='Option 2' value={optionTwoText} onChange={this.handleInput}></input>
