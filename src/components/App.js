@@ -20,11 +20,20 @@ class App extends Component {
   render() {
     const { authedUser } = this.props;
 
+    if (authedUser === null) {
+      return (
+        <Router>
+          <Login />
+        </Router>
+      );
+    }
+
     return (
         <Router>
           <Fragment>
             <div className='container'>
               <Navbar />
+              <h1>Would you Rather?</h1>
               <Route exact path='/' component={Dashboard} />
               <Route path='/question/:id' component={QuestionPage} />
               <Route path='/leaderboard' component={Leaderboard} />

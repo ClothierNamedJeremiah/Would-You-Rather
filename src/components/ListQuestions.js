@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 const ListQuestions = (props) => {
   const {title, questions} = props;
   
-  console.log(questions)
-  
   return (
     <div>
       <h2>{title}</h2>

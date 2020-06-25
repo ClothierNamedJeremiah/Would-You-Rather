@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom';
+
+import './dashboard.css';
 import ListQuestions from './ListQuestions';
 
 class Dashboard extends Component {
+
+  state = {
+    showAll: false,
+  }
+
+  handleChange = () => {
+    this.setState((prevState) => ({
+      showAll: !prevState.showAll,
+    }));
+  }
+
   render() {
-    const {authedUser, users, questions} = this.props;
+    const {authedUser, questions} = this.props;
 
     if (authedUser === null) {
       return <Redirect to='/login' />
@@ -21,10 +34,14 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <h1>Would You Rather?</h1>
-        <h3>Welcome {authedUser}</h3>
+        <label className="switch">
+          <input type="checkbox" checked={this.state.showAll} onChange={this.handleChange}/>
+          <span className="slider round" />
+        </label>
         <ListQuestions title='Unanswered Questions' questions={unanswered_questions.map(id => questions[id])}/>
-        <ListQuestions title='Answered Questions' questions={answered_questions.map(id => questions[id])}/>
+        {this.state.showAll && 
+          <ListQuestions title='Answered Questions' questions={answered_questions.map(id => questions[id])}/>
+        }
       </div>
     );
   }
@@ -33,7 +50,6 @@ class Dashboard extends Component {
 function mapStateToProps ({ authedUser, users, questions }) {
   return {
     authedUser,
-    users,
     questions,
   }
 }

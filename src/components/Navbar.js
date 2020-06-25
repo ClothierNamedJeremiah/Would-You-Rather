@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragmer } from 'react';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -8,12 +8,11 @@ class Navbar extends Component {
   
   handleLogout = (e) => {
     e.preventDefault();
-
     this.props.dispatch(setAuthedUser());
   }
 
   render() {
-    const { authedUser } = this.props;
+    const { authedUser, users } = this.props;
 
     return (
       <nav className='nav'>
@@ -33,28 +32,24 @@ class Navbar extends Component {
               Leaderboard
             </NavLink>
           </li>
-          {authedUser !== null
-            ? <li>
-                <NavLink to='/login' activeClassName='active' onClick={this.handleLogout}>
-                  Logout
-                </NavLink>
-              </li>
-            : <li>
-                <NavLink to='/login' activeClassName='active'>
-                  Login
-                </NavLink>
-              </li>
-          }
-          
+          <li style={{color:'grey', fontStyle:'italic'}}> 
+           Logged in as {authedUser}
+          </li>
+          <li>
+            <NavLink to='/login' activeClassName='active' onClick={this.handleLogout}>
+              Logout
+            </NavLink>
+          </li>
         </ul>
       </nav>
     );
   }
 }
 
-function mapStateToProps ({ authedUser}) {
+function mapStateToProps ({ authedUser, users }) {
   return {
     authedUser,
+    users,
   }
 }
 
