@@ -8,6 +8,7 @@ import Leaderboard from './Leaderboard'
 import NewQuestion from './NewQuestion';
 import Dashboard from './Dashboard'
 import Navbar from './Navbar';
+import QuestionPage from './QuestionPage';
 
 
 
@@ -25,6 +26,7 @@ class App extends Component {
             <div className='container'>
               <Navbar />
               <Route exact path='/' component={Dashboard} />
+              <Route path='/question/:id' component={QuestionPage} />
               <Route path='/leaderboard' component={Leaderboard} />
               <Route path='/add' component={NewQuestion} />
               <Route path='/login' component={Login} />
