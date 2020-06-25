@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 
 const ListQuestions = (props) => {
   const {title, questions} = props;
-  
+  console.log(questions);
+  questions.sort((x,y) => y.timestamp - x.timestamp);
   return (
     <div>
       <h2>{title}</h2>
