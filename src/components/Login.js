@@ -30,7 +30,6 @@ class Login extends Component {
 
   }
 
-  // TODO: back arrow doesn't work after login
   render() {
     const { authedUser, users } = this.props;
 
@@ -52,7 +51,6 @@ class Login extends Component {
             <button className='btn'>Next</button>
           </div>
         </form>
-        
       </div>
     );
   }

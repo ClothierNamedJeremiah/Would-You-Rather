@@ -5,7 +5,10 @@ import { connect } from 'react-redux'
 import { handleInitalData } from "../actions/shared";
 import Login from './Login'
 import Leaderboard from './Leaderboard'
+import NewQuestion from './NewQuestion';
 import Dashboard from './Dashboard'
+import Navbar from './Navbar';
+
 
 
 class App extends Component {
@@ -15,14 +18,19 @@ class App extends Component {
   
   render() {
     const { authedUser } = this.props;
+
     return (
-      <Fragment>
         <Router>
-          <Route exact path='/' component={Dashboard} />
-          <Route path='/login' component={Login} />
-          <Route path='/leaderboard' component={Leaderboard} />
+          <Fragment>
+            <div className='container'>
+              <Navbar />
+              <Route exact path='/' component={Dashboard} />
+              <Route path='/leaderboard' component={Leaderboard} />
+              <Route path='/add' component={NewQuestion} />
+              <Route path='/login' component={Login} />
+            </div>
+          </Fragment>
         </Router>
-      </Fragment>
     );
   }
 }

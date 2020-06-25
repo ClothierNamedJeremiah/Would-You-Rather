@@ -1,4 +1,4 @@
-import { _getUsers, _getQuestions } from '../utils/_DATA.js'
+import { _getUsers, _getQuestions } from '../utils/api'
 
 import { receiveQuestions } from './questions'
 import { receiveUsers } from './users'

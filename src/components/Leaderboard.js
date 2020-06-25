@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 import LeaderboardEntry from './LeaderboardEntry'
 
 class Leaderboard extends Component {
   render() {
-    const { users } = this.props;
+    const { users, authedUser } = this.props;
+    
+    if (authedUser === null) {
+      return <Redirect to='/login' />
+    }
+
     const leaderboardData = Object.keys(users).map((user) => ({
       user,
       avatarURL: users[user].avatarURL,
@@ -54,9 +60,10 @@ class Leaderboard extends Component {
   }
 }
 
-function mapStateToProps({users, questions}) {
+function mapStateToProps({users, authedUser}) {
   return {
     users,
+    authedUser,
   }
 }
 
