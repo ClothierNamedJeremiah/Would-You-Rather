@@ -1,4 +1,4 @@
-import React, { Component, Fragmer } from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -12,7 +12,7 @@ class Navbar extends Component {
   }
 
   render() {
-    const { authedUser, users } = this.props;
+    const { authedUser } = this.props;
 
     return (
       <nav className='nav'>
@@ -46,10 +46,9 @@ class Navbar extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser, users }) {
+function mapStateToProps ({ authedUser }) {
   return {
     authedUser,
-    users,
   }
 }
 

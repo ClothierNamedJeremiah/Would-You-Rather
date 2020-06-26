@@ -34,11 +34,16 @@ class Dashboard extends Component {
 
     return (
       <div>
+      <h2>Show Questions Answered</h2>
         <label className="switch">
           <input type="checkbox" checked={this.state.showAll} onChange={this.handleChange}/>
           <span className="slider round" />
         </label>
-        <ListQuestions title='Unanswered Questions' questions={unanswered_questions.map(id => questions[id])}/>
+
+        {!this.state.showAll && 
+          <ListQuestions title='Unanswered Questions' questions={unanswered_questions.map(id => questions[id])}/>
+        }
+        
         {this.state.showAll && 
           <ListQuestions title='Answered Questions' questions={answered_questions.map(id => questions[id])}/>
         }

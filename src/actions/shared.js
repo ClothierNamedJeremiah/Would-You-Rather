@@ -1,9 +1,13 @@
-import { _getUsers, _getQuestions, _saveQuestion} from '../utils/api'
+import { 
+  _getUsers,
+  _getQuestions,
+  _saveQuestion,
+  _saveQuestionAnswer,
+} from '../utils/api'
 
-import { receiveQuestions, addQuestion } from './questions'
-import { receiveUsers, createQuestion } from './users'
+import { receiveQuestions, addQuestion, addVote } from './questions'
+import { receiveUsers, createQuestion, addAnswer } from './users'
 
-//
 export function handleInitalData () {
   return (dispatch) => {
     return Promise.all([
@@ -19,11 +23,20 @@ export function handleInitalData () {
 
 export function handleAddQuestion (question) {
   return (dispatch) => {
-
     return _saveQuestion(question)
       .then(question => {
         dispatch(addQuestion(question));
         dispatch(createQuestion(question.author, question.id));
       });
+  }
+}
+
+export function handleAddVote (vote) {
+  return (dispatch) => {
+    return _saveQuestionAnswer(vote)
+      .then(() => {
+        dispatch(addVote(vote));
+        dispatch(addAnswer(vote));
+      })
   }
 }

@@ -15,8 +15,8 @@ class Leaderboard extends Component {
     const leaderboardData = Object.keys(users).map((user) => ({
       user,
       avatarURL: users[user].avatarURL,
-      questions_asked: Object.keys(users[user].answers).length,
-      questions_answered: users[user].questions.length,
+      questions_asked: users[user].questions.length,
+      questions_answered: Object.keys(users[user].answers).length,
     }));
 
     
@@ -26,8 +26,6 @@ class Leaderboard extends Component {
       const count2 = user2.questions_answered + user2.questions_asked;
       return count2 - count1;
     });
-
-    console.log(leaderboardData)
 
     return (
       <div>

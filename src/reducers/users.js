@@ -1,4 +1,4 @@
-import { RECEIVE_USERS, CREATE_QUESTION } from '../actions/users'
+import { RECEIVE_USERS, CREATE_QUESTION, ADD_ANSWER } from '../actions/users'
 
 export function users (state = {}, action) {
   switch(action.type) {
@@ -8,13 +8,23 @@ export function users (state = {}, action) {
         ...action.users,
       };
     case CREATE_QUESTION:
-      // given a user and id question, we want to append the id to the user who created it
-      console.log(state[action.user].questions.concat(action.id));
       return {
         ...state,
         [action.user]: {
           ...state[action.user],
           questions: state[action.user].questions.concat(action.id)
+        }
+      }
+    case ADD_ANSWER:
+      console.log(action.authedUser);
+      return {
+        ...state,
+        [action.authedUser]: {
+          ...state[action.authedUser],
+          answers: {
+            ...state[action.authedUser].answers,
+            [action.qid]: action.answer,
+          }
         }
       }
     default:
