@@ -38,12 +38,28 @@ class QuestionPage extends Component {
         <NoMatch />
       )
     }
-    
-    /**
-     * If the user has already voted on the question then display two options and a submit button
-     * if the user has voted then we will highlight their selected choice and 
-     */
 
+    // Case: The authedUser has answered the Question
+    if (question.id in users[authedUser].answers){
+      console.log("%cI Have answered this before","color:cyan");
+      const optionOneCount = question.optionOne.votes.length;
+      const optionTwoCount = question.optionTwo.votes.length;
+      const authedUserAnswer = users[authedUser].answers[question.id]
+      console.log(optionOneCount, optionTwoCount, authedUserAnswer);
+
+      return (
+        <div className='container'>
+          <img className='avatar' src={users[question.author].avatarURL}/>
+          <p>written by {question.author}</p>
+          <div>
+            <p style={authedUserAnswer === 'optionOne' ? {backgroundColor:'#8dd88d'} : {}} >{question.optionOne.text} | Vote Count: {optionOneCount}/{optionOneCount+optionTwoCount} </p>
+            <p style={authedUserAnswer === 'optionTwo' ? {backgroundColor:'#8dd88d'} : {}}>{question.optionTwo.text} | Vote Count: {optionTwoCount}/{optionOneCount+optionTwoCount}</p>
+          </div>
+        </div>
+      );
+    }
+    
+    // Case: The authedUser has not answered the Question
     return (
       <div className='container'>
         <img className='avatar' src={users[question.author].avatarURL}/>
@@ -58,7 +74,6 @@ class QuestionPage extends Component {
           </label><br />
           <button disabled={this.state.answer === ''}>Submit</button>
         </form>
-        
       </div>
     );
   }
