@@ -41,11 +41,9 @@ class QuestionPage extends Component {
 
     // Case: The authedUser has answered the Question
     if (question.id in users[authedUser].answers){
-      console.log("%cI Have answered this before","color:cyan");
       const optionOneCount = question.optionOne.votes.length;
       const optionTwoCount = question.optionTwo.votes.length;
       const authedUserAnswer = users[authedUser].answers[question.id]
-      console.log(optionOneCount, optionTwoCount, authedUserAnswer);
 
       return (
         <div className='container'>

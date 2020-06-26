@@ -15,7 +15,7 @@ The `api.js ` file represents a fake database and methods that let you access th
 * Login: the login page
 * Navbar: the navigation bar displayed on all pages except the login page
 * NewQuestion: a form where the user can submit new questions
-* NoMatch: a 404 page which is rendered when an invalid `question/:id` is supplied
+* NoMatch: a 404 page which is rendered when an invalid `question/:question_id` is supplied
 * QuestionPage: used to display a question (either answered or unaswered)
 
 ## Data

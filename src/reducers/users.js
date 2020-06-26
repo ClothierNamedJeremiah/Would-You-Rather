@@ -16,7 +16,6 @@ export function users (state = {}, action) {
         }
       }
     case ADD_ANSWER:
-      console.log(action.authedUser);
       return {
         ...state,
         [action.authedUser]: {
