@@ -7,6 +7,17 @@ The `api.js ` file represents a fake database and methods that let you access th
 2. Install all project dependencies with `npm install`
 3. Start the development server with `npm start`
 
+## Components
+* Dashboard: The home page where a user can view unanswered and answered questions
+  * ListQuestions: used to display a list of questions on the Dashboard
+* Leaderboard: the leaderboard page
+  * LeaderboardEntry: an row entry in the Leaderboard page table
+* Login: the login page
+* Navbar: the navigation bar displayed on all pages except the login page
+* NewQuestion: a form where the user can submit new questions
+* NoMatch: a 404 page which is rendered when an invalid `question/:id` is supplied
+* QuestionPage: used to display a question (either answered or unaswered)
+
 ## Data
 
 There are two types of objects stored in our database:
