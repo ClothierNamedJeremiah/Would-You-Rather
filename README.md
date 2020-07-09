@@ -1,6 +1,6 @@
 # Would You Rather Project
 
-A React web application that allows a logged in user to add, view, and answer questions that have been submitted by other users. Additionally, there is a leaderboard to keep track of who has both asked and answered the most "would you rather" questions.
+A React web application that lets a user play the “Would You Rather?” game. An authenticated user can add, view, and answer questions that have been submitted by other users. Additionally, there is a leaderboard to keep track of who has both asked and answered the most "would you rather" questions.
 
 This project was built using React and Redux.
 
