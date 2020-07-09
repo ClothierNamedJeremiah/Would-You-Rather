@@ -1,6 +1,8 @@
 # Would You Rather Project
 
-The `api.js ` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` api.js ` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+A React web application that allows a logged in user to add, view, and answer questions that have been submitted by other users. Additionally, there is a leaderboard to keep track of who has both asked and answered the most "would you rather" questions.
+
+This project was built using React and Redux.
 
 ## Installation
 1. Clone the repository with `git clone` 
@@ -18,14 +20,15 @@ The `api.js ` file represents a fake database and methods that let you access th
 * NoMatch: a 404 page which is rendered when an invalid `question/:question_id` is supplied
 * QuestionPage: used to display a question (either answered or unaswered)
 
-## Data
+# Database
+The `api.js ` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` api.js ` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
 
 There are two types of objects stored in our database:
 
 * Users
 * Questions
 
-### Users
+## Users
 
 Users include:
 
@@ -37,7 +40,7 @@ Users include:
 | questions | Array | A list of ids of the polling questions this user created|
 | answers      | Object         |  The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either `'optionOne'` or `'optionTwo'` since each question has two options.
 
-### Questions
+## Questions
 
 Questions include:
 
@@ -49,7 +52,7 @@ Questions include:
 | optionOne | Object | The first voting option|
 | optionTwo | Object | The second voting option|
 
-### Voting Options
+## Voting Options
 
 Voting options are attached to questions. They include:
 
@@ -106,3 +109,9 @@ Your code will talk to the database via 4 methods:
 | authedUser | String | The id of the user who answered the question|
 | qid | String | The id of the question that was answered|
 | answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
+
+## Additional Features
+* Authentication from Google and LinkedIn
+* Account Creation
+* Breakout `Questions` to --> `QuestionPoll` & `QuestionResult`
+* Loadiing Bar
