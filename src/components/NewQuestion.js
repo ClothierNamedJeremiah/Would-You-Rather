@@ -1,60 +1,54 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useMutation } from 'react-query';
 
-import { handleAddQuestion } from '../actions/shared';
+import { _saveQuestion } from '../utils/api';
+import { useAuthedUser } from '../authedUser';
 
-class NewQuestion extends Component {
+export default function NewQuestion() {
+  const [optionOneText, setOptionOneText] = useState('');
+  const [optionTwoText, setOptionTwoText] = useState('');
+  const [toHome, setToHome] = useState(false);
+  const authedUser = useAuthedUser();
 
-  state = {
-    optionOneText: '',
-    optionTwoText: '',
-    toHome: false,
-  }
+  const mutation = useMutation((question) => _saveQuestion(question));
 
-  handleInput = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const key = e.target.name;
-    const value = e.target.value;
 
-    this.setState(() => ({
-      [key]: value
-    }));
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { dispatch, authedUser } = this.props;
-    const { optionOneText, optionTwoText } = this.state;
-    
-    dispatch(handleAddQuestion({
+    mutation.mutate({
       optionOneText,
       optionTwoText,
       author: authedUser,
-    }))
+    });
 
-    this.setState(() => ({
-      toHome: true
-    }));
+    setToHome(true);
+  };
+
+  if (toHome) {
+    return <Redirect to="/" />;
   }
 
-  render() {
-    const { optionOneText, optionTwoText, toHome } = this.state;
-
-    if (toHome) {
-      return <Redirect to='/' />
-    }
-
-    // TODO: user types really fast, what is the actual state
-    return (
-      <div className = 'container'>
-        <form className='new-question' onSubmit={this.handleSubmit}>
-          <input name='optionOneText' type='text' placeholder='Option 1' value={optionOneText} onChange={this.handleInput}></input>
-          <input name='optionTwoText' type='text' placeholder='Option 2' value={optionTwoText} onChange={this.handleInput}></input>
-          <button>Submit</button>
-        </form>
-      </div>
-    );
-  }
+  // TODO: user types really fast, what is the actual state
+  return (
+    <div className="container">
+      <form className="new-question" onSubmit={handleSubmit}>
+        <input
+          name="optionOneText"
+          type="text"
+          placeholder="Option 1"
+          value={optionOneText}
+          onChange={(event) => setOptionOneText(event.target.value)}
+        />
+        <input
+          name="optionTwoText"
+          type="text"
+          placeholder="Option 2"
+          value={optionTwoText}
+          onChange={(event) => setOptionTwoText(event.target.value)}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
 }
-
-export default NewQuestion;

@@ -1,66 +1,45 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { setAuthedUser } from '../actions/authedUser'
-import { Redirect } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { useSetAuthedUser } from '../authedUser';
 
-import './Login.css'
+import './Login.css';
+import { _getUsers } from '../utils/api';
 
-class Login extends Component {
+export default function Login() {
+  const [user, setUser] = useState('default');
+  const query = useQuery('users', _getUsers);
+  const setAuthedUser = useSetAuthedUser();
 
-  state = {
-    user: 'default',
-  }
-
-  handleLogin = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    
-    const { user } = this.state;
-    const { dispatch } = this.props;
+    setAuthedUser(user);
+  };
 
-    dispatch(setAuthedUser(user));
-  }
-
-  handleChange = (e) => {
+  const handleChange = (e) => {
     e.preventDefault();
-    
-    const user = e.target.value;
-    this.setState(() => ({
-      user,
-    }));
+    setUser(e.target.value);
+  };
 
-  }
-
-  render() {
-    const { authedUser, users } = this.props;
-
-    if (authedUser !== null) {
-      return <Redirect to='/' />
-    }
-
-    return (
-      <div className='center'>
-        <h1>Login</h1>
-        <form onSubmit={this.handleLogin}>
-          <select defaultValue={this.state.user} onChange={this.handleChange}>
-            <option disabled name='default' value='default'>Select a User</option>
-            {Object.keys(users).map((user) => (
-              <option key={user} name={user} value={user}>{user}</option>
-            ))}
-          </select>
-          <div>
-            <button className='btn'>Next</button>
-          </div>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="center">
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
+        <select defaultValue={user} onChange={handleChange}>
+          <option disabled name="default" value="default">
+            Select a User
+          </option>
+          {Object.keys(query.data || []).map((user) => (
+            <option key={user} name={user} value={user}>
+              {user}
+            </option>
+          ))}
+        </select>
+        <div>
+          <button className="btn" type="submit">
+            Next
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
-
-function mapStateToProps ({authedUser, users}) {
-  return {
-    authedUser,
-    users,
-  }
-}
-
-export default connect(mapStateToProps)(Login);
