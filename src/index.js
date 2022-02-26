@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import './index.css';
 import App from './components/App';
-import reducer from './reducers'
-import middleware from './middleware'
+import { AuthedUserContextProvider } from './authedUser';
 
-const store = createStore(reducer, middleware);
+const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+  <QueryClientProvider client={queryClient}>
+    <AuthedUserContextProvider>
+      <App />
+    </AuthedUserContextProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>,
+  document.getElementById('root'),
 );

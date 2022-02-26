@@ -1,62 +1,56 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import { _getQuestions } from '../utils/api';
 
 import './dashboard.css';
 import ListQuestions from './ListQuestions';
+import { useAuthedUser } from '../authedUser';
 
-class Dashboard extends Component {
+export default function Dashboard() {
+  const [showAll, setShowAll] = useState(false);
+  const authedUser = useAuthedUser();
+  const questionsQuery = useQuery('questions', _getQuestions);
+  const questions = questionsQuery.data || [];
 
-  state = {
-    showAll: false,
-  }
+  const handleChange = () => {
+    setShowAll((state) => !state);
+  };
 
-  handleChange = () => {
-    this.setState((prevState) => ({
-      showAll: !prevState.showAll,
-    }));
-  }
+  const answeredQuestions = Object.keys(questions).filter(
+    (id) =>
+      questions[id].optionOne.votes.includes(authedUser) ||
+      questions[id].optionTwo.votes.includes(authedUser),
+  );
 
-  render() {
-    const {authedUser, questions} = this.props;
+  const unansweredQuestions = Object.keys(questions).filter(
+    (id) =>
+      !(
+        questions[id].optionOne.votes.includes(authedUser) ||
+        questions[id].optionTwo.votes.includes(authedUser)
+      ),
+  );
 
-    if (authedUser === null) {
-      return <Redirect to='/login' />
-    }
-
-    const answered_questions = Object.keys(questions).filter((id) => (
-      questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser)
-    ));
-
-    const unanswered_questions = Object.keys(questions).filter((id) => (
-      !(questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser))
-    ));
-
-    return (
-      <div>
+  return (
+    <div>
       <h2>Show Questions Answered</h2>
-        <label className="switch">
-          <input type="checkbox" checked={this.state.showAll} onChange={this.handleChange}/>
-          <span className="slider round" />
-        </label>
+      <label className="switch" htmlFor="show-all">
+        <input type="checkbox" checked={showAll} onChange={handleChange} id="show-all" />
+        <span className="slider round" />
+      </label>
 
-        {!this.state.showAll && 
-          <ListQuestions title='Unanswered Questions' questions={unanswered_questions.map(id => questions[id])}/>
-        }
-        
-        {this.state.showAll && 
-          <ListQuestions title='Answered Questions' questions={answered_questions.map(id => questions[id])}/>
-        }
-      </div>
-    );
-  }
+      {!showAll && (
+        <ListQuestions
+          title="Unanswered Questions"
+          questions={unansweredQuestions.map((id) => questions[id])}
+        />
+      )}
+
+      {showAll && (
+        <ListQuestions
+          title="Answered Questions"
+          questions={answeredQuestions.map((id) => questions[id])}
+        />
+      )}
+    </div>
+  );
 }
-
-function mapStateToProps ({ authedUser, users, questions }) {
-  return {
-    authedUser,
-    questions,
-  }
-}
-
-export default connect(mapStateToProps)(Dashboard);
